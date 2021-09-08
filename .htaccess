@@ -1,0 +1,82 @@
+#Force HTTPS and NON-WWW
+RewriteEngine on
+rewriteCond %{HTTP_HOST} ^(www\.)(.+) [OR]
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP_HOST} ^(www\.)?(.+)
+RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+RewriteCond %{REQUEST_URI} !^/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+RewriteRule ^ https://%2%{REQUEST_URI} [R=301,L]
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^vitrinavirtualfecoomeva.com$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.vitrinavirtualfecoomeva.com$
+RewriteCond %{REQUEST_URI} !new_vitrina/public/
+RewriteRule (.*) new_vitrina/public/$1 [L]
+
+#RewriteEngine on
+#RewriteRule ^$ new_vitrina/public/ [L]
+#RewriteRule (.*) new_vitrina/public/$1 [L]
+
+# .htaccess main domain to subdirectory redirect
+# Do not change this line.
+RewriteEngine on
+
+# Change example.com to be your main domain.
+RewriteCond %{HTTP_HOST} ^(www.)?vitrinavirtualfecoomeva.com$
+
+# Change ‘subdirectory’ to be the directory you will use for your main domain.
+RewriteCond %{REQUEST_URI} !^/new_vitrina/public/
+
+# Don’t change the following two lines.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Change ‘subdirectory’ to be the directory you will use for your main domain.
+RewriteRule ^(.*)$ /new_vitrina/public/$1
+
+# Change example.com to be your main domain again.
+# Change ‘subdirectory’ to be the directory you will use for your main domain
+# followed by / then the main file for your site, index.php, index.html, etc.
+RewriteCond %{HTTP_HOST} ^(www.)?vitrinavirtualfecoomeva.com$
+RewriteRule ^(/)?$ new_vitrina/public/ [L]
+
+redirect 301 /registro-productos https://registro-productos.vitrinavirtualfecoomeva.com
+redirect 301 /ayuda-precio https://ayuda-precio.vitrinavirtualfecoomeva.com
+
+# BEGIN cPanel-generated php ini directives, do not edit
+# Manual editing of this file may result in unexpected behavior.
+# To make changes to this file, use the cPanel MultiPHP INI Editor (Home >> Software >> MultiPHP INI Editor)
+# For more information, read our documentation (https://go.cpanel.net/EA4ModifyINI)
+<IfModule php7_module>
+   php_value memory_limit 1024M
+   php_flag display_errors Off
+   php_value max_execution_time 30
+   php_value max_input_time 60
+   php_value max_input_vars 1000
+   php_value post_max_size 10M
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/var/cpanel/php/sessions/ea-php71"
+   php_value upload_max_filesize 10M
+   php_flag zlib.output_compression On
+</IfModule>
+<IfModule lsapi_module>
+   php_value memory_limit 1024M
+   php_flag display_errors Off
+   php_value max_execution_time 30
+   php_value max_input_time 60
+   php_value max_input_vars 1000
+   php_value post_max_size 10M
+   php_value session.gc_maxlifetime 1440
+   php_value session.save_path "/var/cpanel/php/sessions/ea-php71"
+   php_value upload_max_filesize 10M
+   php_flag zlib.output_compression On
+</IfModule>
+# END cPanel-generated php ini directives, do not edit
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php73” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php73 .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
